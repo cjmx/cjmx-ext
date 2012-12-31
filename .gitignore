@@ -1,7 +1,9 @@
 *.class
 *.log
+tags
 
 # sbt specific
+.lib/
 dist/*
 target/
 lib_managed/
