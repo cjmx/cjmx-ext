@@ -26,8 +26,6 @@ licenses += ("Three-clause BSD-style", url("http://github.com/cjmx/cjmx/blob/mas
 
 triggeredMessage := (_ => Watched.clearScreen)
 
-resolvers += "Typesafe" at "http://repo.typesafe.com/typesafe/repo"
-
 libraryDependencies += "org.scalatest" % "scalatest" % "2.0.M5" % "test" cross CrossVersion.binaryMapped {
   case "2.10" => "2.10.0"
   case other => other

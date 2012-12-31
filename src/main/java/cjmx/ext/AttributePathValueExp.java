@@ -24,14 +24,36 @@ import javax.management.openmbean.CompositeData;
 
 
 /**
- * Value expression that supports JMX monitor syntax, as defined in the JavaDoc of
+ * Value expression that supports JMX monitor syntax, as described in the JavaDoc of
  * the {@link javax.management.monitor} package.
+ *
+ * <p>This allows referencing nested values in queries.  For example, {@code HeapMemoryUsage.used}.
+ * A path to a value is specified by an attribute name and zero or more path segments, where each
+ * path segment represents the name of a value nested in the previous value or attribute value in the
+ * case of the first path segment.</p>
+ *
+ * <p>A path segment is resolved against a value in the following way:
+ *  <ul>
+ *   <li>If the value is a {@link CompositeData}, the path segment is used as the key name in a lookup to the {@code CompositeData} and the resulting value is returned.</li>
+ *   <li>If the value is an array and the path segment is the string {@code length}, the length of the array is returned.</li>
+ *   <li>If the value is a Java Bean, the path segment is used as a property name and the property's read method is invoked and resulting value is returned.</li>
+ *  </ul>
+ * </p>
+ *
+ * This process is repeated recursively for each path segment until there are no path segments remaining, at which point the last produced value is returned wrapped in a
+ * literal value expression.
  */
 public final class AttributePathValueExp implements ValueExp {
 
     private final String attributeName;
     private final List<String> path;
 
+    /**
+     * Creates an expression.
+     *
+     * @param attributeName name of the attribute
+     * @param path ordered collection of path segments
+     */
     public AttributePathValueExp(final String attributeName, final Collection<String> path) {
         assert attributeName != null : "attributeName must not be null";
         this.attributeName = attributeName;
