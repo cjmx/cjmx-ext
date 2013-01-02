@@ -2,7 +2,7 @@ organization := "com.github.cjmx"
 
 name := "cjmx-ext"
 
-version := "1.0.0-SNAPSHOT"
+version := "1.0.0-M2"
 
 scalaVersion := "2.10.0"
 
@@ -71,4 +71,6 @@ pomPostProcess := { (node) =>
   new RuleTransformer(stripTestScope).transform(node)(0)
 }
 
-//useGpg := true
+useGpg := true
+
+useGpgAgent := true
