@@ -4,7 +4,7 @@ name := "cjmx-ext"
 
 version := "1.0.0-SNAPSHOT"
 
-scalaVersion := "2.10.0"
+scalaVersion := "2.10.2"
 
 autoScalaLibrary := false
 
@@ -22,14 +22,13 @@ scalacOptions ++= Seq(
   "-Ywarn-all",
   "-feature")
 
+javacOptions ++= Seq("-source", "1.5", "-target", "1.5", "-Xlint:deprecation")
+
 licenses += ("Three-clause BSD-style", url("http://github.com/cjmx/cjmx/blob/master/LICENSE"))
 
 triggeredMessage := (_ => Watched.clearScreen)
 
-libraryDependencies += "org.scalatest" % "scalatest" % "2.0.M5" % "test" cross CrossVersion.binaryMapped {
-  case "2.10" => "2.10.0"
-  case other => other
-}
+libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0.RC1-SNAP4" % "test"
 
 publishTo <<= version { v: String =>
   val nexus = "https://oss.sonatype.org/"
@@ -71,6 +70,3 @@ pomPostProcess := { (node) =>
   new RuleTransformer(stripTestScope).transform(node)(0)
 }
 
-useGpg := true
-
-useGpgAgent := true
