@@ -24,6 +24,8 @@ scalacOptions ++= Seq(
 
 javacOptions ++= Seq("-source", "1.5", "-target", "1.5", "-Xlint:deprecation")
 
+javacOptions in doc := Seq("-source", "1.5")
+
 licenses += ("Three-clause BSD-style", url("http://github.com/cjmx/cjmx/blob/master/LICENSE"))
 
 triggeredMessage := (_ => Watched.clearScreen)
